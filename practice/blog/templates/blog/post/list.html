@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+    {% for post in posts %}
+        <article>
+            <h1><a href="{{post.get_absolute_url}}">{{post.title}}</a></h1>
+            <p class="article_pub-date">Published
+                {{post.publish}} by {{post.author}}
+            </p>
+    
+            <div class="row">
+                <div class="large-12 columns">
+                    <img class="float-right" src="{% static 'img/desktop2.png' %}" />
+                    <p>{{post.body}}</p>
+                </div>
+            </div>
+        <a href="{{post.get_absolute_url}}" class="button">Read More</a>
+        </article>
+        <hr />
+    {% endfor %}
+    {% include 'blog/pagination.html' with page=posts %}
+{% endblock %}
+
+{% block body %}
+
+<h5>Categories</h5>
+<div class="ui secondary vertical pointing menu">
+    <a href="#" class="active item">News</a>
+    <a href="#" class="item">Code</a>
+     <a href="#" class="item">Design</a>
+    <a href="#" class="item">Fun</a>
+    <a href="#" class="item">Weasels</a>
+</div>
+
+<div class="ui vertical menu">
+    <div class="header item">
+        <i class="icon-page"></i>
+        Recent Posts
+    </div>
+
+    {% for key, value in dic %}
+        <div class="item">
+            <a href="{{value.0}}"><h6>{{key}}</h6> <p>{{value.1}}</p></a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
